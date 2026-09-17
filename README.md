@@ -14,18 +14,19 @@ A fast, mobile-first NFL game guide showing today's slate, kickoff times, broadc
 
 ## Local development
 
-Requires Node.js 22 and pnpm 11.
+Requires Node.js 24 and pnpm 11.25.0.
 
 ```bash
 pnpm install
 pnpm run build:github
+pnpm lint
 ```
 
 The static site is generated in `out/`.
 
 ## GitHub Pages
 
-The workflow at `.github/workflows/deploy-pages.yml` is intentionally manual. In the repository settings, choose **GitHub Actions** as the Pages source, then run **Deploy Who Plays Tonight** from the Actions tab.
+The workflow at `.github/workflows/deploy-pages.yml` deploys automatically on pushes to `main` and can also be run manually. In the repository settings, choose **GitHub Actions** as the Pages source. To deploy manually, run **Deploy Who Plays Tonight** from the Actions tab.
 
 The included `CNAME` points the site to `whoplaystonight.com`.
 
