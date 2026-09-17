@@ -6,9 +6,11 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "build:github": "next build",
+    "dev": "pnpm data:refresh && next dev",
+    "data:refresh": "node --experimental-strip-types scripts/refresh-nfl.mjs",
+    "verify:export": "node --experimental-strip-types scripts/verify-export.mjs",
+    "build": "pnpm data:refresh && next build",
+    "build:github": "pnpm run build",
     "lint": "eslint . --ignore-pattern .next",
     "test": "node --experimental-strip-types --test tests/*.test.mjs"
   },

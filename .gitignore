@@ -4,3 +4,5 @@ out/
 next-env.d.ts
 *.tsbuildinfo
 .pnpm-store/
+public/data/nfl.json
+public/data/nfl.json.tmp-*

@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useSyncExternalStore } from "react";
-import { EASTERN_TIME_ZONE, timeZoneLabel, validTimeZone } from "@/app/lib/time";
+import { EASTERN_TIME_ZONE, formatKickoff, timeZoneLabel, validTimeZone } from "@/app/lib/time";
 
 const STORAGE_KEY = "who-plays-tonight:time-zone";
 const CHANGE_EVENT = "who-plays-tonight:time-zone-changed";
@@ -60,12 +60,12 @@ export function useTimeZone() {
   };
 }
 
-export function TimeZoneSelector({ showUpdate = false }: { showUpdate?: boolean }) {
+export function TimeZoneSelector({ updatedAt }: { updatedAt: string }) {
   const id = useId();
   const { preference, localTimeZone, timeZone } = useTimeZone();
   return (
     <div className="schedule-controls">
-      {showUpdate ? <span className="update-note"><span className="live-dot" aria-hidden="true" />Updated hourly</span> : null}
+      <span className="update-note">Updated <time dateTime={updatedAt}>{formatKickoff(updatedAt, timeZone)}</time></span>
       <div className="time-zone-control">
         <label htmlFor={id}>Kickoff times</label>
         <select id={id} value={preference} onChange={(event) => setPreference(event.target.value === "local" ? "local" : "eastern")}>
@@ -73,6 +73,7 @@ export function TimeZoneSelector({ showUpdate = false }: { showUpdate?: boolean 
           <option value="local">Your timezone — {timeZoneLabel(localTimeZone)}</option>
         </select>
       </div>
+      <p className="time-zone-note">Updates at midnight &amp; noon ET · Scores as of the last update.</p>
       {timeZone !== EASTERN_TIME_ZONE ? <p className="time-zone-note" role="status">Kickoff times use your timezone. NFL schedule dates use Eastern Time.</p> : null}
     </div>
   );

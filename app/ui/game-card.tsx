@@ -1,6 +1,6 @@
 import type { GameView } from "@/app/lib/nfl";
 import { sitePath } from "@/app/lib/paths";
-import { formatKickoff } from "@/app/lib/nfl";
+import { formatKickoff } from "@/app/lib/time";
 import { useTimeZone } from "@/app/ui/time-zone";
 
 type NetworkMark = { key: string; name: string; logo?: string };

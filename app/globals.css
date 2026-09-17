@@ -33,8 +33,7 @@ button { font:inherit; }
 .slate-summary { margin:10px 0 0; color:var(--muted); }
 .eyebrow { margin:0 0 8px; color:var(--muted); font-size:.78rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
 h1 { margin-bottom:0; font-size:clamp(2.45rem,7vw,5.4rem); line-height:.94; letter-spacing:-.07em; font-weight:950; }
-.update-note { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:.86rem; white-space:nowrap; }
-.live-dot { width:8px; height:8px; border-radius:50%; background:#3b9d45; box-shadow:0 0 0 4px #3b9d451c; }
+.update-note { display:flex; align-items:center; flex-wrap:wrap; gap:4px; color:var(--muted); font-size:.86rem; }
 .schedule-controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px 24px; }
 .time-zone-control { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; max-width:100%; }
 .time-zone-control label { color:var(--muted); font-size:.86rem; }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { NFL_TEAMS } from "@/app/lib/nfl";
+import { NFL_TEAMS, getTeamPageData } from "@/app/lib/nfl";
+import { getSnapshot } from "@/app/lib/snapshot";
 import { pageMetadata } from "@/app/lib/seo";
 import { TeamLive } from "@/app/ui/team-live";
 
@@ -34,5 +35,8 @@ export function generateStaticParams() {
 export default async function TeamPage({ params }: PageProps) {
   const { team } = await params;
   if (!NFL_TEAMS.some(([abbr]) => abbr === team.toLowerCase())) notFound();
-  return <TeamLive code={team.toLowerCase()} />;
+  const snapshot = getSnapshot();
+  const data = getTeamPageData(snapshot, team);
+  if (!data) notFound();
+  return <TeamLive data={data} updatedAt={snapshot.updatedAt} />;
 }

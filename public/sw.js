@@ -1,5 +1,5 @@
 const CACHE_PREFIX = `who-plays-tonight-${self.registration.scope}-`;
-const CACHE_NAME = `${CACHE_PREFIX}v2`;
+const CACHE_NAME = `${CACHE_PREFIX}v3`;
 const APP_ROOT = self.registration.scope;
 const APP_SHELL = [
   "./",
@@ -30,6 +30,8 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin || !url.href.startsWith(APP_ROOT)) return;
+  // The downloadable snapshot must never be held by the app-shell cache.
+  if (url.pathname.startsWith(new URL("data/", APP_ROOT).pathname)) return;
 
   if (request.mode === "navigate") {
     event.respondWith(
