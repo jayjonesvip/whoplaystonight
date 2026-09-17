@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { sitePath } from "@/app/lib/paths";
 import { GameCard } from "@/app/ui/game-card";
 import { SiteHeader } from "@/app/ui/site-header";
 import { findNextSlate, formatLongDate, getAllTeams, getSlateHeading, type GameView } from "@/app/lib/nfl";
@@ -40,11 +41,11 @@ export function HomeLive() {
       </section>
       <section className="spotlight-section">
         <div className="section-title"><p className="eyebrow">Primetime & holidays</p><h2>Big nights, quick answers</h2></div>
-        <div className="spotlight-grid">{spotlightLinks.map(([href, day, label]) => <a href={`/${href}`} className="spotlight-link" key={href}><span>{day}</span><strong>{label}</strong><b aria-hidden="true">→</b></a>)}</div>
+        <div className="spotlight-grid">{spotlightLinks.map(([href, day, label]) => <a href={sitePath(`/${href}/`)} className="spotlight-link" key={href}><span>{day}</span><strong>{label}</strong><b aria-hidden="true">→</b></a>)}</div>
       </section>
       <section className="teams-section" id="teams">
         <div className="section-title"><p className="eyebrow">All 32 clubs</p><h2>Find your team</h2></div>
-        <div className="team-link-grid">{teams.map((team) => <a key={team.abbreviation} href={`/teams/${team.abbreviation.toLowerCase()}`} className="team-link"><img src={team.logo} alt="" aria-hidden="true" width="40" height="40" /><span>{team.shortName}</span></a>)}</div>
+        <div className="team-link-grid">{teams.map((team) => <a key={team.abbreviation} href={sitePath(`/teams/${team.abbreviation.toLowerCase()}/`)} className="team-link"><img src={team.logo} alt="" aria-hidden="true" width="40" height="40" /><span>{team.shortName}</span></a>)}</div>
       </section>
       <footer><span>Who Plays Tonight</span><span>Independent schedule guide. Not affiliated with or endorsed by the NFL or its broadcast partners.</span></footer>
       </main>

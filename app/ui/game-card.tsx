@@ -1,4 +1,5 @@
 import type { GameView } from "@/app/lib/nfl";
+import { sitePath } from "@/app/lib/paths";
 import { formatKickoff } from "@/app/lib/nfl";
 
 type NetworkMark = { key: string; name: string; logo?: string };
@@ -47,7 +48,7 @@ function NetworkBadge({ mark }: { mark: NetworkMark }) {
 
 function TeamRow({ team }: { team: GameView["home"] }) {
   return (
-    <a href={`/teams/${team.abbreviation.toLowerCase()}`} className="matchup-team">
+    <a href={sitePath(`/teams/${team.abbreviation.toLowerCase()}/`)} className="matchup-team">
       <img src={team.logo} alt="" aria-hidden="true" width="62" height="62" />
       <span><strong>{team.shortName}</strong><small>{team.record ?? team.abbreviation}</small></span>
       {team.score != null ? <b className="game-score">{team.score}</b> : null}

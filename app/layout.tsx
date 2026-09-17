@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import { sitePath } from "@/app/lib/paths";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/app/lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
   applicationName: SITE_NAME,
-  manifest: "/manifest.webmanifest",
+  manifest: sitePath("/manifest.webmanifest"),
   metadataBase: new URL(SITE_URL),
   title: {
     default: "NFL Games Today: Times & TV Channels | Who Plays Tonight",
@@ -45,9 +46,9 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/pwa-192.png",
+    icon: sitePath("/favicon.svg"),
+    shortcut: sitePath("/favicon.svg"),
+    apple: sitePath("/pwa-192.png"),
   },
   appleWebApp: {
     capable: true,

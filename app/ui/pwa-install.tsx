@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { sitePath } from "@/app/lib/paths";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -18,7 +19,7 @@ export function PwaInstall() {
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {
+      navigator.serviceWorker.register(sitePath("/sw.js")).catch(() => {
         setAnnouncement("Install support is temporarily unavailable.");
       });
     }

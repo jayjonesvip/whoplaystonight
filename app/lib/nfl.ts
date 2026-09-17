@@ -1,3 +1,5 @@
+import { sitePath } from "@/app/lib/paths";
+
 const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/nfl";
 const EASTERN = "America/New_York";
 const RESPONSE_TTL_MS = 60 * 60 * 1000;
@@ -101,7 +103,7 @@ export function getSpotlightCopy(kind: SpotlightKind) {
   return SPOTLIGHT_COPY[kind];
 }
 
-const FALLBACK_LOGO = "/favicon.svg";
+const FALLBACK_LOGO = sitePath("/favicon.svg");
 
 function scoreValue(score: EspnCompetitor["score"]): string | undefined {
   if (typeof score === "string") return score;

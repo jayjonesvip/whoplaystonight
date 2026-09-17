@@ -1,13 +1,15 @@
-const CACHE_NAME = "who-plays-tonight-v1";
+const CACHE_PREFIX = `who-plays-tonight-${self.registration.scope}-`;
+const CACHE_NAME = `${CACHE_PREFIX}v2`;
+const APP_ROOT = self.registration.scope;
 const APP_SHELL = [
-  "/",
-  "/manifest.webmanifest",
-  "/favicon.svg",
-  "/logo-mark.svg",
-  "/pwa-192.png",
-  "/pwa-512.png",
-  "/pwa-maskable-512.png"
-];
+  "./",
+  "manifest.webmanifest",
+  "favicon.svg",
+  "logo-mark.svg",
+  "pwa-192.png",
+  "pwa-512.png",
+  "pwa-maskable-512.png"
+].map((path) => new URL(path, APP_ROOT).href);
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
@@ -17,7 +19,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => Promise.all(
-      keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+      keys.filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME).map((key) => caches.delete(key))
     ))
   );
   self.clients.claim();
@@ -27,7 +29,7 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
   const url = new URL(request.url);
-  if (url.origin !== self.location.origin) return;
+  if (url.origin !== self.location.origin || !url.href.startsWith(APP_ROOT)) return;
 
   if (request.mode === "navigate") {
     event.respondWith(
@@ -37,7 +39,7 @@ self.addEventListener("fetch", (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
           return response;
         })
-        .catch(async () => (await caches.match(request)) || caches.match("/"))
+        .catch(async () => (await caches.match(request)) || caches.match(APP_ROOT))
     );
     return;
   }

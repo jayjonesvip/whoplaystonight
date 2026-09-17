@@ -30,6 +30,8 @@ The workflow at `.github/workflows/deploy-pages.yml` deploys automatically on pu
 
 The included `CNAME` points the site to `whoplaystonight.com`.
 
+The build reads the configured Pages base path automatically, so CSS, JavaScript, navigation, and PWA assets work at either the project URL or a configured custom domain. To test the project URL locally, build with `NEXT_PUBLIC_BASE_PATH=/whoplaystonight`. Without that variable, local builds use the domain root.
+
 ## Data and trademarks
 
 Schedule data is loaded from ESPN's public site feed. Who Plays Tonight is an independent schedule guide and is not affiliated with or endorsed by the NFL, its teams, ESPN, or other broadcast partners. Team and network marks identify the related teams and broadcasts.
