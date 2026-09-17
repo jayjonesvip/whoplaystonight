@@ -10,6 +10,11 @@ export function TeamLive({ data, updatedAt }: { data: TeamPageData; updatedAt: s
   const { timeZone } = useTimeZone();
   const last = data.lastGame ? resultForTeam(data.lastGame, data.team.abbreviation) : null;
   const playsToday = teamPlaysToday(data, updatedAt);
+  const game = data.nextGame;
+  const opponent = game ? (game.home.abbreviation === data.team.abbreviation ? game.away : game.home) : null;
+  const channelAnswer = game && opponent
+    ? `The ${game.state === "in" ? "" : "next "}${data.team.shortName} game against the ${opponent.name} ${game.broadcasts.length ? `is on ${game.broadcasts.join(", ")}` : "has no announced TV channel or streaming service yet"}. Kickoff: ${formatKickoff(game.date, timeZone)}.`
+    : `The next ${data.team.shortName} game has not been scheduled yet. TV channel and streaming details will appear here when announced.`;
 
   return (
     <>
@@ -19,7 +24,12 @@ export function TeamLive({ data, updatedAt }: { data: TeamPageData; updatedAt: s
       <div className="team-time-zone"><TimeZoneSelector updatedAt={updatedAt} /></div>
       <section className="today-answer" aria-live="polite"><p className="eyebrow">Quick answer</p><h2>Do the {data.team.shortName} play today?</h2><p>{playsToday && data.nextGame ? `Yes. The ${data.team.shortName} play on today’s NFL slate. Kickoff: ${formatKickoff(data.nextGame.date, timeZone)}.` : data.nextGame ? `No. Their next game is ${formatKickoff(data.nextGame.date, timeZone)}.` : "No. Their next game has not been scheduled yet."}</p></section>
       <section className="team-content">
-        <div className="next-game-block"><p className="eyebrow">Next game</p>{data.nextGame ? <GameCard game={data.nextGame} /> : <div className="offseason-panel compact"><span className="offseason-mark" aria-hidden="true">🏈</span><div><h2>Cleats are in the closet.</h2><p>The next {data.team.shortName} game hasn’t been scheduled yet. Enjoy the quiet while it lasts.</p></div></div>}</div>
+        <div className="next-game-block"><p className="eyebrow">Next game</p>{data.nextGame ? <GameCard game={data.nextGame} /> : <div className="offseason-panel compact"><span className="offseason-mark" aria-hidden="true">🏈</span><div><h2>Cleats are in the closet.</h2><p>The next {data.team.shortName} game hasn’t been scheduled yet. Enjoy the quiet while it lasts.</p></div></div>}
+          <section className="search-answer" aria-labelledby="channel-question">
+            <h2 id="channel-question">What channel is the {data.team.shortName} game on?</h2>
+            <p>{channelAnswer}</p>
+          </section>
+        </div>
         <aside className="last-game-card"><p className="eyebrow">Last game</p>{data.lastGame && last ? <><div className={`result-pill result-${last.result.toLowerCase()}`}>{last.result}</div><h2>{last.score}</h2><p>{formatKickoff(data.lastGame.date, timeZone)}</p></> : <><h2>No final yet</h2><p>The season’s first score is still waiting.</p></>}</aside>
       </section>
       <footer><span>Who Plays Tonight</span><span>Independent schedule guide. Not affiliated with or endorsed by the NFL or its broadcast partners.</span></footer>

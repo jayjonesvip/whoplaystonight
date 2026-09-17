@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!known) return { title: "NFL Team Schedule" };
   const shortName = known[1].split(" ").slice(-1)[0];
   return pageMetadata({
-    title: `Do the ${shortName} Play Today? Next Game & TV`,
-    description: `Do the ${known[1]} play today? See their next game, kickoff time, TV channel, current record, and last game score.`,
+    title: `${shortName} Game Today: TV Channel, Time & Next Game`,
+    description: `What channel is the ${shortName} game on? Find the ${known[1]}' next opponent, TV channel or streaming service, kickoff time, and whether they play today.`,
     path: `/teams/${known[0]}`,
     keywords: [
       `do the ${shortName.toLowerCase()} play today`,
