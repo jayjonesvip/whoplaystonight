@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://whoplaystonight.com/sitemap.xml
