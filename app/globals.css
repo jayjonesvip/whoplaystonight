@@ -29,12 +29,19 @@ button { font:inherit; }
 
 .slate-shell,.teams-section,.spotlight-section,.special-content,.team-content,.today-answer { width:min(1180px,calc(100% - 40px)); margin:0 auto; }
 .slate-shell { padding:clamp(48px,7vw,92px) 0 60px; }
-.slate-heading { margin-bottom:30px; display:flex; align-items:end; justify-content:space-between; gap:28px; }
+.slate-heading { margin-bottom:30px; display:flex; align-items:flex-start; flex-direction:column; gap:18px; }
 .slate-summary { margin:10px 0 0; color:var(--muted); }
 .eyebrow { margin:0 0 8px; color:var(--muted); font-size:.78rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
 h1 { margin-bottom:0; font-size:clamp(2.45rem,7vw,5.4rem); line-height:.94; letter-spacing:-.07em; font-weight:950; }
 .update-note { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:.86rem; white-space:nowrap; }
 .live-dot { width:8px; height:8px; border-radius:50%; background:#3b9d45; box-shadow:0 0 0 4px #3b9d451c; }
+.schedule-controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px 24px; }
+.time-zone-control { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; max-width:100%; }
+.time-zone-control label { color:var(--muted); font-size:.86rem; }
+.time-zone-control select { min-height:44px; max-width:100%; padding:8px 12px; border:1px solid var(--line); border-radius:9px; color:var(--ink); background:var(--panel); font:inherit; font-size:.86rem; cursor:pointer; }
+.time-zone-note { flex-basis:100%; margin:0; color:var(--muted); font-size:.8rem; }
+.special-content > .schedule-controls { margin-bottom:24px; }
+.team-time-zone { width:min(1180px,calc(100% - 40px)); margin:0 auto 22px; }
 
 .game-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
 .game-card { overflow:hidden; border:1px solid var(--line); border-radius:20px; background:var(--panel); box-shadow:0 8px 22px rgba(17,20,16,.045); }
@@ -132,7 +139,7 @@ footer span:first-child { color:var(--ink); font-weight:950; }
   .header-actions { gap:8px; }
   .header-actions > a { display:none; }
   .install-button { padding:0 11px; font-size:.82rem; }
-  .slate-shell,.teams-section,.spotlight-section,.special-content,.team-content,.team-hero,.today-answer { width:min(100% - 24px,1180px); }
+  .slate-shell,.teams-section,.spotlight-section,.special-content,.team-content,.team-hero,.today-answer,.team-time-zone { width:min(100% - 24px,1180px); }
   .slate-shell { padding-top:38px; }
   .matchup { padding:13px 10px; gap:3px; }
   .matchup-team { flex-direction:column; text-align:center; gap:4px; }

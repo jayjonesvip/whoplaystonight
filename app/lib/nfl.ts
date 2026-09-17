@@ -1,4 +1,5 @@
 import { sitePath } from "@/app/lib/paths";
+export { formatKickoff } from "@/app/lib/time";
 
 const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/nfl";
 const EASTERN = "America/New_York";
@@ -331,13 +332,6 @@ export async function getSpotlightGames(kind: SpotlightKind) {
 export function teamPlaysToday(data: TeamPageData) {
   if (!data.nextGame) return false;
   return easternDateKey(new Date(data.nextGame.date)) === easternDateKey(new Date());
-}
-
-export function formatKickoff(date: string) {
-  return new Intl.DateTimeFormat("en-US", {
-    timeZone: EASTERN, weekday: "short", month: "short", day: "numeric",
-    hour: "numeric", minute: "2-digit", timeZoneName: "short",
-  }).format(new Date(date));
 }
 
 export function formatLongDate(date: string) {

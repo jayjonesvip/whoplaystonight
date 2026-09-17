@@ -1,6 +1,7 @@
 import type { GameView } from "@/app/lib/nfl";
 import { sitePath } from "@/app/lib/paths";
 import { formatKickoff } from "@/app/lib/nfl";
+import { useTimeZone } from "@/app/ui/time-zone";
 
 type NetworkMark = { key: string; name: string; logo?: string };
 
@@ -57,12 +58,13 @@ function TeamRow({ team }: { team: GameView["home"] }) {
 }
 
 export function GameCard({ game }: { game: GameView }) {
+  const { timeZone } = useTimeZone();
   const networkMarks = [...new Map(
     game.broadcasts.flatMap(expandNetwork).map((mark) => [mark.key, mark])
   ).values()];
   return (
     <article className="game-card" aria-label={`${game.away.name} at ${game.home.name}`}>
-      <div className="game-meta"><span>{formatKickoff(game.date)}</span><span className="game-status">{game.status}</span></div>
+      <div className="game-meta"><span>{formatKickoff(game.date, timeZone)}</span><span className="game-status">{game.status}</span></div>
       <div className="matchup"><TeamRow team={game.away} /><div className="at-mark">AT</div><TeamRow team={game.home} /></div>
       <div className="watch-row">
         <span className="watch-label">WATCH ON</span>

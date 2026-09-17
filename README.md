@@ -5,6 +5,7 @@ A fast, mobile-first NFL game guide showing today's slate, kickoff times, broadc
 ## Highlights
 
 - Live schedule data with hourly browser caching
+- Eastern kickoff times by default, with a remembered browser-timezone choice
 - Pages for all 32 NFL teams
 - Monday, Thursday, and Sunday Night Football pages
 - Thanksgiving football schedule

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { sitePath } from "@/app/lib/paths";
 import { GameCard } from "@/app/ui/game-card";
 import { SiteHeader } from "@/app/ui/site-header";
+import { TimeZoneSelector } from "@/app/ui/time-zone";
 import { findNextSlate, formatLongDate, getAllTeams, getSlateHeading, type GameView } from "@/app/lib/nfl";
 
 type Slate = { date: string; daysAhead: number; games: GameView[] } | null;
@@ -33,7 +34,7 @@ export function HomeLive() {
       <section className="slate-shell" aria-labelledby="slate-title" aria-busy={loading}>
         <div className="slate-heading">
           <div><p className="eyebrow">{slate ? formatLongDate(slate.date) : "NFL schedule"}</p><h1 id="slate-title">{loading ? "Loading today’s games…" : slate ? getSlateHeading(slate.daysAhead) : failed ? "The schedule feed is unavailable." : "The league is catching its breath."}</h1><p className="slate-summary">NFL kickoff times, TV channels, and streaming options.</p></div>
-          <div className="update-note" role="status"><span className="live-dot" aria-hidden="true" />Updated hourly · Times ET</div>
+          <TimeZoneSelector showUpdate />
         </div>
         {slate ? <div className="game-grid">{slate.games.map((game) => <GameCard key={game.id} game={game} />)}</div> : !loading ? (
           <div className="offseason-panel" role="status"><span className="offseason-mark" aria-hidden="true">🏈</span><div><h2>{failed ? "The feed didn’t connect." : "The grass is resting."}</h2><p>{failed ? "Refresh the page to try the live schedule again." : "No NFL games are scheduled this week. The next kickoff will find its way here."}</p></div></div>
